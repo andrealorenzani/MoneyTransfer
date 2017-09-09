@@ -40,9 +40,9 @@ To run unit tests
 To call the API you can use CURL like that
  * Give the number of the users in the store: *curl -v http://localhost:8080/size*
  * Return all the users in the store: *curl -v http://localhost:8080/*
- * Add a user in the store: *curl -v --request POST --data '' http://localhost:8080/user/<name>/<id>*
- * Retrieve user with *id* from the store: *curl -v http://localhost:8080/user/<id>*
- * Add money to an user: *curl -v --request PUT --data '' http://localhost:8080/add/<id>/<money>*
- * **Transfer money**: *curl -v --request PUT http://localhost:8080/move/<idSource>/<money>/<idDest>*
+ * Add a user in the store: *curl -v --request POST --data '' http://localhost:8080/user/_name_/_id_*
+ * Retrieve user with *id* from the store: *curl -v http://localhost:8080/user/_id_*
+ * Add money to an user: *curl -v --request PUT --data '' http://localhost:8080/add/_id_/_money_*
+ * **Transfer money**: *curl -v --request PUT http://localhost:8080/move/_idSource_/_money_/_idDest_*
 
 I look forward for your evaluation
