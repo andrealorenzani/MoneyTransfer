@@ -33,8 +33,10 @@ I had no time to setup an integration test with cucumber. Tomorrow I am not at h
 ## Usage
 To start the server:
  * sbt run
+ 
 To run unit tests
  * sbt test
+ 
 To call the API you can use CURL like that
  * Give the number of the users in the store: *curl -v http://localhost:8080/size*
  * Return all the users in the store: *curl -v http://localhost:8080/*
