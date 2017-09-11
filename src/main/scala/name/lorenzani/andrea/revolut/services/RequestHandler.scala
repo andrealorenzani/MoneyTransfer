@@ -18,6 +18,7 @@ trait RequestHandler {
             response.contentString = res
           }
           case Failure(ex) => {
+            println(s"Error occurred while handling request to '${request.path}': ${ex.getMessage}")
             response.status = Status.BadRequest
             response.contentString = ex.getMessage
           }
