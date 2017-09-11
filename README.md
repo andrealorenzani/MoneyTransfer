@@ -37,6 +37,8 @@ To start the server:
 To run unit tests
  * sbt test
  
+Please note that integration tests (Cucumber) are provided, but in my environment I use a plugin for running them.
+ 
 To call the API you can use CURL like that
  * Give the number of the users in the store: *curl -v http://localhost:8080/size*
  * Return all the users in the store: *curl -v http://localhost:8080/*
