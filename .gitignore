@@ -1,3 +1,9 @@
-.idea
+target/
+project/target/
+project/project/
+.bsp/
+.idea/
+.vscode/
+.metals/
+.bloop/
 *.iml
-target

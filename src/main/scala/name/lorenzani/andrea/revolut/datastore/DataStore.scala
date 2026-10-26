@@ -1,23 +1,20 @@
 package name.lorenzani.andrea.revolut.datastore
 
-import scala.collection.mutable
+final case class User(id: String, name: String, availability: BigDecimal)
 
-sealed case class User(id: String, name: String, availability: Double)
+final case class Size(size: Int)
 
-sealed case class Size(size: Int)
+enum StoreError(val message: String):
+  case UserExists(id: String) extends StoreError(s"ID $id already used")
+  case UnknownAccount(id: String) extends StoreError(s"Account id $id does not exist")
+  case InsufficientFunds(name: String) extends StoreError(s"User $name has not enough money available")
+  case InvalidAmount(amount: BigDecimal) extends StoreError(s"Amount $amount must be greater than zero")
+  case SameAccount(id: String) extends StoreError(s"Cannot transfer money from account $id to itself")
 
-abstract class DataStore {
-  def getUser(id: String): Option[User]
-  def add(newUser: User): User
-  def transfer(idSource: String, idDest: String, moneyQty: Double): List[User]
-  def addMoney(idDest: String, moneyQty: Double): User
-  def getAll: List[User]
+trait DataStore:
+  def get(id: String): Option[User]
+  def add(newUser: User): Either[StoreError, User]
+  def addMoney(id: String, amount: BigDecimal): Either[StoreError, User]
+  def transfer(idSource: String, idDest: String, amount: BigDecimal): Either[StoreError, List[User]]
+  def all: List[User]
   def size: Int
-}
-
-object DataStore {
-  private val map = mutable.Map[String, User]()
-  private val ds = new SimpleMapStore(map)
-
-  def getDataStore: DataStore = ds
-}

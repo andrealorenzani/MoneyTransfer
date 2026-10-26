@@ -1,14 +1,12 @@
 package name.lorenzani.andrea.revolut
 
-import com.twitter.finagle.Http
-import com.twitter.util.Await
-import name.lorenzani.andrea.revolut.services.RequestHandler._
-import name.lorenzani.andrea.revolut.services.RestService
+import name.lorenzani.andrea.revolut.datastore.InMemoryDataStore
+import name.lorenzani.andrea.revolut.services.{Api, RestServer}
 
-object MoneyTransfer extends App {
-  val restApi = new RestService(getTransferHandler, getUserHandler)
-  val server = Http.server
-    .withLabel("MoneyTransfer")
-    .serve(":8080", restApi)
-  Await.ready(server) // waits until the server resources are released
-}
+import java.util.concurrent.CountDownLatch
+
+@main def moneyTransfer(): Unit =
+  val port = sys.env.get("PORT").flatMap(_.toIntOption).getOrElse(8080)
+  val server = RestServer(Api(InMemoryDataStore()), port).start()
+  println(s"MoneyTransfer listening on port ${server.boundPort}")
+  CountDownLatch(1).await() // serve until the process is killed
